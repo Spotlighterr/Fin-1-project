@@ -137,8 +137,32 @@
 \AddToShipoutPictureBG{%
   \ifnum\value{page}>1
     \begin{tikzpicture}[remember picture, overlay]
-      % Draw a thin, elegant gray border aligned with margins
-      \draw[line width=0.5pt, gray!50] ($(current page.north west) + (3.0cm,-2.0cm)$) rectangle ($(current page.south east) + (-1.5cm,2.0cm)$);
+      \coordinate (TL) at ($(current page.north west) + (3.0cm,-2.0cm)$);
+      \coordinate (TR) at ($(current page.north east) + (-1.5cm,-2.0cm)$);
+      \coordinate (BL) at ($(current page.south west) + (3.0cm,2.0cm)$);
+      \coordinate (BR) at ($(current page.south east) + (-1.5cm,2.0cm)$);
+
+      % Thin border lines (with gaps for the corner arcs)
+      \draw[line width=0.5pt, gray!40] ($(TL) + (0.6cm,0)$) -- ($(TR) + (-0.6cm,0)$);
+      \draw[line width=0.5pt, gray!40] ($(TR) + (0,-0.6cm)$) -- ($(BR) + (0,0.6cm)$);
+      \draw[line width=0.5pt, gray!40] ($(BR) + (-0.6cm,0)$) -- ($(BL) + (0.6cm,0)$);
+      \draw[line width=0.5pt, gray!40] ($(BL) + (0,0.6cm)$) -- ($(TL) + (0,-0.6cm)$);
+
+      % Corner arcs with nested dots (TL)
+      \draw[line width=0.5pt, gray!40] ($(TL) + (0.6cm,0)$) arc (90:180:0.6cm);
+      \draw[line width=0.3pt, gray!30] ($(TL) + (0.4cm,-0.4cm)$) circle (1.0pt);
+
+      % Corner arcs with nested dots (TR)
+      \draw[line width=0.5pt, gray!40] ($(TR) + (-0.6cm,0)$) arc (90:0:0.6cm);
+      \draw[line width=0.3pt, gray!30] ($(TR) + (-0.4cm,-0.4cm)$) circle (1.0pt);
+
+      % Corner arcs with nested dots (BL)
+      \draw[line width=0.5pt, gray!40] ($(BL) + (0.6cm,0)$) arc (270:180:0.6cm);
+      \draw[line width=0.3pt, gray!30] ($(BL) + (0.4cm,0.4cm)$) circle (1.0pt);
+
+      % Corner arcs with nested dots (BR)
+      \draw[line width=0.5pt, gray!40] ($(BR) + (-0.6cm,0)$) arc (270:360:0.6cm);
+      \draw[line width=0.3pt, gray!30] ($(BR) + (-0.4cm,0.4cm)$) circle (1.0pt);
     \end{tikzpicture}%
   \fi
 }
