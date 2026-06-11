@@ -1,20 +1,20 @@
 %% ============================================================
 %%  FIN1 – Personal Financial Planning Report
 %%  Compiler : XeLaTeX  (Overleaf: Menu → Compiler → XeLaTeX)
-%%  Format   : Vietnamese University Academic Standard
+%%  Format   : Executive Corporate Finance Template
 %%  Reference: APA 7th Edition
 %% ============================================================
 \documentclass[12pt,a4paper]{report}
 
-%% ── FONT: Real Times New Roman via fontspec (XeLaTeX) ───────
+%% ── FONT CONFIGURATION (Executive Corporate Style) ──────────
 \usepackage{fontspec}
-\setmainfont{Times New Roman}
+\setmainfont{Cambria}
+\newfontfamily\headingfont{Calibri}[BoldFont={Calibri Bold}, ItalicFont={Calibri Italic}]
 
-%% ── PAGE GEOMETRY (Vietnamese University Standard) ──────────
-%%  Left 3.5 cm | Right 2 cm | Top 2.5 cm | Bottom 2.5 cm
+%% ── PAGE GEOMETRY (Symmetric Corporate Standard) ──────────
 \usepackage[
-  left   = 3.5cm,
-  right  = 2cm,
+  left   = 2.5cm,
+  right  = 2.5cm,
   top    = 2.5cm,
   bottom = 2.5cm,
   includeheadfoot
@@ -26,6 +26,20 @@
 \setlength{\parindent}{1.27cm}
 \setlength{\parskip}{6pt}
 
+%% ── COLORS (McKinsey / BCG Style Corporate Theme) ──────────
+\usepackage[table]{xcolor}
+\definecolor{corpnavy}{HTML}{002D62}  % McKinsey/Deloitte style Navy
+\definecolor{corpblue}{HTML}{0078D4}  % Accent Blue
+\definecolor{corpgray}{HTML}{5E5E5E}  % Neutral gray for running elements
+\definecolor{corplight}{HTML}{F4F6F9} % Light background for rows and boxes
+\definecolor{corpborder}{HTML}{D1D5DB}% Border gray
+\definecolor{corpcharcoal}{HTML}{2D3748}% Soft charcoal for body text (more premium than pure black)
+
+\AtBeginDocument{%
+  \color{corpcharcoal}%
+  \arrayrulecolor{corpnavy}%
+}
+
 %% ── TABLES & FIGURES ────────────────────────────────────────
 \usepackage{graphicx}
 \usepackage{wrapfig}             % figure beside text
@@ -33,7 +47,7 @@
 \usepackage{longtable}
 \usepackage{float}               % [H] forced placement
 \usepackage{array}
-\usepackage{tabularx}                % auto-width columns
+\usepackage{tabularx}            % auto-width columns
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}  % left-aligned auto-width
 \usepackage{makecell}
 
@@ -43,8 +57,6 @@
 \usepackage{xurl}             % allow URL breaks at any character
 
 %% ── CAPTION FORMAT (APA 7th Edition) ────────────────────────
-%%  Table:  "Table N" (bold) newline italic title  → ABOVE table
-%%  Figure: "Figure N." italic description         → BELOW figure
 \usepackage{caption}
 \DeclareCaptionFormat{apatable}{%
   \textbf{#1#2}\\[3pt]\textit{#3}%
@@ -71,47 +83,78 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\fontsize{9}{11}\selectfont\headingfont\color{corpgray}FIN1 --- Personal Financial Planning Report}
+\fancyhead[R]{\fontsize{9}{11}\selectfont\headingfont\color{corpgray}\leftmark}
+\fancyfoot[R]{\fontsize{10}{12}\selectfont\headingfont\color{corpnavy}\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{2.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{corpborder}\leaders\hrule height \headrulewidth\hfill}}
 
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyfoot[C]{\thepage}%
+  \fancyfoot[R]{\fontsize{10}{12}\selectfont\headingfont\color{corpnavy}\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
 }
 
 %% ── CHAPTER & SECTION HEADINGS (titlesec) ───────────────────
 \usepackage{titlesec}
 
-%% CHAPTER: "PHASE N" centred 14pt bold, chapter title below
+%% CHAPTER: "PHASE N" centred 18pt bold Calibri, chapter title below
 \titleformat{\chapter}[display]
-  {\normalfont\fontsize{14}{17}\selectfont\bfseries\centering}
-  {\MakeUppercase{\chaptertitlename}\ \thechapter}
-  {6pt}
-  {\fontsize{14}{17}\selectfont\bfseries\centering}
-\titlespacing*{\chapter}{0pt}{0pt}{24pt}
+  {\headingfont\fontsize{18}{22}\selectfont\bfseries\color{corpnavy}\centering}
+  {\MakeUppercase{\chaptertitlename}\ \color{corpblue}\thechapter}
+  {8pt}
+  {\headingfont\fontsize{18}{22}\selectfont\bfseries\centering}
+\titlespacing*{\chapter}{0pt}{0pt}{30pt}
 
-%% SECTION: 13pt bold, left-aligned, auto-numbered (e.g. 1.1)
+%% SECTION: 14pt bold Calibri, with thick blue accent line below
 \titleformat{\section}
-  {\normalfont\fontsize{13}{15.6}\selectfont\bfseries}
-  {\thesection}
+  {\headingfont\fontsize{14}{17}\selectfont\bfseries\color{corpnavy}}
+  {\color{corpblue}\thesection}
   {1em}{}
-\titlespacing*{\section}{0pt}{12pt}{6pt}
+  [\vspace{3pt}{\color{corpblue}\hrule height 1.5pt}]
+\titlespacing*{\section}{0pt}{16pt}{8pt}
 
-%% SUBSECTION: 13pt bold italic
+%% SUBSECTION: 12pt bold italic Calibri
 \titleformat{\subsection}
-  {\normalfont\fontsize{13}{15.6}\selectfont\bfseries\itshape}
-  {\thesubsection}
+  {\headingfont\fontsize{12}{15}\selectfont\bfseries\itshape\color{corpnavy}}
+  {\color{corpblue}\thesubsection}
   {1em}{}
-\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
 
 %% ── TABLE OF CONTENTS ───────────────────────────────────────
 \usepackage{tocloft}
-\renewcommand{\cftchapfont}{\bfseries}
-\renewcommand{\cftchappagefont}{\bfseries}
-\setlength{\cftbeforechapskip}{3pt}
+\renewcommand{\cftchapfont}{\headingfont\bfseries\color{corpnavy}}
+\renewcommand{\cftchappagefont}{\headingfont\bfseries\color{corpnavy}}
+\renewcommand{\cftsecfont}{\headingfont\color{corpcharcoal}}
+\renewcommand{\cftsecpagefont}{\headingfont\color{corpcharcoal}}
+\setlength{\cftbeforechapskip}{4pt}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+%% ── LISTING STYLES (enumitem) ────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize,1]{label=\color{corpblue}\textbullet}
+\setlist[itemize,2]{label=\color{corpblue}\normalfont\bfseries --}
+
+%% ── TAKEAWAY BOXES (tcolorbox) ──────────────────────────────
+\usepackage[most]{tcolorbox}
+\newtcolorbox{takeawaybox}[1][]{
+  colback=corplight,
+  colframe=corpnavy,
+  arc=4pt,
+  outer arc=4pt,
+  boxrule=0.5pt,
+  leftrule=4pt,
+  top=10pt,
+  bottom=10pt,
+  left=14pt,
+  right=14pt,
+  fonttitle=\headingfont\bfseries\color{white},
+  fontupper=\normalfont,
+  sharp corners=northeast,
+  #1
+}
 
 %% ── APA REFERENCES: hanging indent ─────────────────────────
 \usepackage{hanging}
@@ -120,9 +163,9 @@
 \usepackage{hyperref}
 \hypersetup{
   colorlinks = true,
-  linkcolor  = black,
-  citecolor  = black,
-  urlcolor   = blue,
+  linkcolor  = corpnavy,
+  citecolor  = corpnavy,
+  urlcolor   = corpblue,
   pdfauthor  = {Vu Duc Huy},
   pdftitle   = {FIN1 - Personal Financial Planning Report},
 }
@@ -135,6 +178,8 @@
 
 \input{chapters/00-cover}
 \clearpage
+
+\rowcolors{2}{corplight}{white}
 
 {\singlespacing\tableofcontents}
 \clearpage
