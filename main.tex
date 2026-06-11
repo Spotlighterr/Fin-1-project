@@ -132,6 +132,17 @@
 %% ── CHAPTER PREFIX: "Phase" → displayed as "PHASE N" ───────
 \renewcommand{\chaptername}{Phase}
 
+%% ── PAGE BORDERS FOR ALL PAGES (EXCEPT COVER) ────────────────
+\usepackage{eso-pic}
+\AddToShipoutPictureBG{%
+  \ifnum\value{page}>1
+    \begin{tikzpicture}[remember picture, overlay]
+      % Draw a thin, elegant gray border aligned with margins
+      \draw[line width=0.5pt, gray!50] ($(current page.north west) + (3.0cm,-2.0cm)$) rectangle ($(current page.south east) + (-1.5cm,2.0cm)$);
+    \end{tikzpicture}%
+  \fi
+}
+
 % ─────────────────────────────────────────────────────────────
 \begin{document}
 
